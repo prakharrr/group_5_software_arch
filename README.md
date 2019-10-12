@@ -15,4 +15,4 @@
     * b. Run `python3 sender.py` in other shell  
 
 
-![alt text](https://github.com/prakharrr/assets/group_5_software_arch/blob/master/assets/PROJECT_HEART.png "Running instance")
+![alt text](https://github.com/prakharrr/group_5_software_arch/blob/master/assets/PROJECT_HEART.png "Running instance")
