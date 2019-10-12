@@ -11,5 +11,8 @@
  2. After installing, add that to your path
  3. Run the rabbit-mq server : `rabbitmq-server` in a separate shell
  4. Open 2 more shells:
-    a. In one of those shells type: `python3 receiver.py`
-    b. Run `python3 sender.py` in other shell  
+    * a. In one of those shells type: `python3 receiver.py`
+    * b. Run `python3 sender.py` in other shell  
+
+
+![alt text](https://github.com/prakharrr/group_5_software_arch/blob/master/PROJECT_HEART.png "HERE")
