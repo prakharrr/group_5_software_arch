@@ -23,8 +23,8 @@ channel.queue_declare(Q)
 
 def failure():
 	log = []
-	for i in range(10):
-		time.sleep(2)
+	for i in range(5):
+		time.sleep(1)
 		log.append('[FAULTY_MODULE] Working for ' + str(i) + ' seconds.\n')
 		print("[MONITOR] Sent transmission data at -- {}".format(now))
 		print(('[FAULTY_MODULE] Working for ' + str(i) + ' seconds.'))
