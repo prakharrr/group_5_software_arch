@@ -22,6 +22,8 @@ channel.queue_declare(Q)
 
 def callback(ch, method, properties, body):
     print("Received message {}".format(body))
+    print(" [x] Done")
+    print('Received {}'.format(body))
 
 #TODO: Add SIGINT to break the script 
 
