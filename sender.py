@@ -25,7 +25,7 @@ while True:
     channel.basic_publish(exchange="", routing_key=Q,  body="Every Pizza is a personal pizza if you believe in yourself!!!")
     print("[MONITOR] Sent Beep boop beeep at -- {}".format(now))
     numerator = randint(0, 100)
-    denominator = randint(0, 10)
+    denominator = randint(0, 2)
     sleep(1)
 
 conn.close()
