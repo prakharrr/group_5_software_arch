@@ -1,18 +1,15 @@
-# -*- coding: utf-8 -*-
-
 import pika
 from datetime import datetime
-import random
+from random import randint
+from time import sleep
 
-import time
 TIME_FORMAT = ("%m/%d/%Y %H:%M:%S")
 now = (datetime.now().strftime(TIME_FORMAT))
-
+numerator = randint(0, 100)
+denominator = randint(0,10)
 
 Q="PIKA_QUEUE"
-
 # DEFINE ROUTING KEY FOR SECURITY LATER
-
 # ROUTING_KEY = ""
 
 conn = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
@@ -21,17 +18,14 @@ channel = conn.channel()
 
 channel.queue_declare(Q)
 
-def failure():
-	log = []
-	for i in range(5):
-		time.sleep(1)
-		log.append('[FAULTY_MODULE] Working for ' + str(i) + ' seconds.\n')
-		print("[MONITOR] Sent transmission data at -- {}".format(now))
-		print(('[FAULTY_MODULE] Working for ' + str(i) + ' seconds.'))
-	return (str(log))
-
-channel.basic_publish(exchange="", routing_key=Q, body=failure())
-
+while True:
+    if denominator == 0:
+        print("I fail now")
+    numerator / denominator
+    channel.basic_publish(exchange="", routing_key=Q,  body="Every Pizza is a personal pizza if you believe in yourself!!!")
+    print("[MONITOR] Sent Beep boop beeep at -- {}".format(now))
+    numerator = randint(0, 100)
+    denominator = randint(0, 10)
+    sleep(1)
 
 conn.close()
-
