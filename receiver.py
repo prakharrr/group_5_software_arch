@@ -20,32 +20,39 @@ channel = conn.channel()
 
 channel.queue_declare(Q)
 
-message_lock = 0
+# Monitoring components
 
 def callback(ch, method, properties, body):
-	ticker.cancel()
+	message_lock = 1
 
 	if body:
 		print("Received message {}\n".format(body))
 
 	print("[x] Done")
 	print('Received Data')
-	#message_lock = 0
-	#lock()
-	ticker.start
+	message_lock = 0
+	last_updated = time.time() # update last received message time
 
 def lock():
-	# ignore if 1, active callback
-	print("Fail. No messages coming in")
+	while True:
+		time.sleep(5) # wait to check for messages
 
-ticker = threading.Timer(interval=3.0, function=lock)
+		# If at least 5s before last update and no messages
+		if (time.time() - last_updated) >= 5 & message_lock == 0:
+			print("Fail. No messages coming in")
+
+# Monitor components
+last_updated = time.time()
+message_lock = 0
+monitor = threading.Thread(name='monitor', target=lock, args='')
 
 #TODO: Add SIGINT to break the script 
 
 channel.basic_consume(on_message_callback=callback,queue=Q, auto_ack=True)
 
 # logger.info('Waiting to receive....')
-ticker.start()
+monitor.start()
+last_updated = time.time() # reset time just in case
 print("Ready to receive message from {} queue.".format(Q))
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
