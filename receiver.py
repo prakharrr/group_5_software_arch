@@ -25,21 +25,23 @@ channel.queue_declare(Q)
 
 
 def callback(ch, method, properties, body):
+	"""
+	callback method to check the alive status of the critical process/sender
+	"""
 
-	# time.sleep(5)
 	body = body.decode('utf-8')
 	for line in (body.split(',')):
 		if 'Result' in line:
-		    print ('Received data: {}'.format(line))
+			print('[SUCCESS] Received data: {}'.format(line))
 		elif 'ERROR' in line:
-			print('[*] Error detected in the sender at -- {}'.format(now))
+			print('[ERROR] Error detected in the sender at -- {}'.format(now))
 			print('[MONITOR] An error has been detected at the sender\'s end. \nPlease check the system and run again')
-			print('[x] Not exiting right now! Please try again with your process')
+			print('[MONITOR] Not exiting right now! Please try again with your process\n\n')
 			# sys.exit(1)
-	print("Received: delivery tag: {0}\tchannel num: {1}".format(method.delivery_tag, ch.channel_number))
+	print("Received: Delivery tag: {} Channel num: {}".format(method.delivery_tag, ch.channel_number))
 
 print("Ready to receive message from {} queue.".format(Q))
-print(' [*] Waiting for messages. To exit press CTRL+C')
+print(' [*] Waiting for messages. To exit press CTRL+C\n')
 
 channel.basic_consume(on_message_callback=callback,queue=Q, auto_ack=True)
 
