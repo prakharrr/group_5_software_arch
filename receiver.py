@@ -11,11 +11,8 @@ import logging
 
 Q = "PIKA_QUEUE"
 
-
 #Creating pika connection queue and its params 
 conn = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
-
-
 
 channel = conn.channel()
 
@@ -24,30 +21,30 @@ channel.queue_declare(Q)
 # Monitoring components
 
 def callback(ch, method, properties, body):
-	message_lock = 1
+	last_updated = time.time()
+	message_lock = True
 
 	if body:
 		print("Received message {}\n".format(body))
 
 	print("[x] Done")
 	print('Received Data')
-	message_lock = 0
+	message_lock = False
 	last_updated = time.time() # update last received message time
 
 def lock():
 	while True:
-
 		# If at least 5s before last update and no messages
-		if (time.time() - last_updated) >= 5 & message_lock == 0:
+		if (time.time() - last_updated) >= 5 and not message_lock:
 			print("Fail. No messages coming in")
 			sys.exit(1)
 
 # Monitor components
 last_updated = time.time()
-message_lock = 0
+message_lock = False
 monitor = threading.Thread(name='monitor', target=lock, args='')
 
-#TODO: Add SIGINT to break the script 
+#TODO: Add SIGINT to break the script
 
 channel.basic_consume(on_message_callback=callback,queue=Q, auto_ack=True)
 
