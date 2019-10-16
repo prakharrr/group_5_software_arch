@@ -28,5 +28,13 @@ def failure():
 
 ```
 
+### Running 
 
-![alt text](https://github.com/prakharrr/group_5_software_arch/blob/master/assets/PROJECT_HEART.png "Running instance")
+![alt text](https://github.com/prakharrr/group_5_software_arch/blob/master/assets/process_all.png "Running instance")
+
+### Architecture
+![alt text](https://github.com/prakharrr/group_5_software_arch/blob/master/assets/HB.png "Architecture")
+
+### Final Running example
+![alt text](https://github.com/prakharrr/group_5_software_arch/blob/master/assets/HB.png "Detection of HeartBeat")
+
