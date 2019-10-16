@@ -17,14 +17,45 @@
 This is the Non-deterministic fault that we've injected in the application
 #### CHANGE ME!!!!!
 ```python
-def failure():
+def not_failure():
+    """
+    Data which doesn't result in errors at the receiver
+    """
+    isAlive=True
     log = []
-    for i in range(5):
-        time.sleep(1)
-        log.append('[FAULTY_MODULE] Working for ' + str(i) + ' seconds.\n')
-        print("[MONITOR] Sent transmission data at -- {}".format(now))
-        print(('[FAULTY_MODULE] Working for ' + str(i) + ' seconds.'))
-    return (str(log))
+    err_log = []
+    try:
+        for i in range(2,10)[::-1]:
+            time.sleep(1)
+            print('Result is {}/{}= {}'.format(i,i-1,i//(i-1)))
+            log.append('Result is {}/{}= {}'.format(i,i-1,i//(i-1)))
+            print("[MONITOR] Sent Data data at -- {}".format(now))
+    except:
+        isAlive=False
+        print('[MONITOR] Problem detected in the sender -- {}'.format(now))
+        print('[MONITOR] Could not send the result to receiver -- {}'.format(now))
+        err_log.append('[ERROR] Error detected in the sender.')
+    return str(log) if isAlive else str(err_log)
+
+def failure():
+    """
+    Data which does result in errors at the receiver
+    """
+    isAlive=True
+    log = []
+    err_log = []
+    try:
+        for i in range(1,10)[::-1]:
+            time.sleep(1)
+            print('Result is {}/{}= {}'.format(i,i-1,i//(i-1)))
+            log.append('Result is {}/{}= {}'.format(i,i-1,i//(i-1)))
+            print("[MONITOR] Sent Data data at -- {}".format(now))
+    except:
+        isAlive=False
+        print('[MONITOR] Problem detected in the sender -- {}'.format(now))
+        print('[MONITOR] Could not send the result to receiver -- {}'.format(now))
+        err_log.append('[ERROR] Error detected in the sender.')
+    return str(log) if isAlive else str(err_log)
 
 ```
 
