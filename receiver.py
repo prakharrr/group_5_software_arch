@@ -34,6 +34,7 @@ def callback(ch, method, properties, body):
 		elif 'ERROR' in line:
 			print('[*] Error detected in the sender at -- {}'.format(now))
 			print('[MONITOR] An error has been detected at the sender\'s end. \nPlease check the system and run again')
+			print('[x] Not exiting right now! Please try again with your process')
 			# sys.exit(1)
 	print("Received: delivery tag: {0}\tchannel num: {1}".format(method.delivery_tag, ch.channel_number))
 
