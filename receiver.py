@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import pika
 import time
 import threading
@@ -35,11 +36,11 @@ def callback(ch, method, properties, body):
 
 def lock():
 	while True:
-		time.sleep(5) # wait to check for messages
 
 		# If at least 5s before last update and no messages
 		if (time.time() - last_updated) >= 5 & message_lock == 0:
 			print("Fail. No messages coming in")
+			sys.exit(1)
 
 # Monitor components
 last_updated = time.time()
