@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Install rabbitmq server using homebrew
+      run: brew install rabbitmq
+    
+    - name: exporting rabbits path
+      run: export PATH=$PATH:/usr/local/opt/rabbitmq/sbin
+    
+    - name: Running RabbitMq server
+      run: rabbitmq-server
