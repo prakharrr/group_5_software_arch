@@ -1,27 +1,27 @@
 #
-# 
+# Makefile targets
 #
 
-.PHONY: install warning run run_sender run_receiver
+
+#
+# Phony Targets
+#
+
+.PHONY: install run run_sender run_passivessa
 	
-install: warning
+install: run_sender run_passive
 	@echo "\nInstalling requirements!\n"
 	pip3 install -r requirements.txt > /dev/null
 
 
-warning:
-	@echo "\n\n*****\nThis Makefile assumes you have Python3, Rabbit-MQ and PIKA installed!\
-	\nIf not you can install it from here: \
-	\nRabbitMQ -> https://www.rabbitmq.com/download.html\
-	\nPika -> https://pika.readthedocs.io/en/stable/ \n***** \n\n"
-
-run: warning run_receiver run_sender
+run: run_passive run_sender
 	@echo "Running the application!!"
 
-run_receiver:
-	@echo "Running Receiver"
-	python3 receiver.py
+
+run_passive:
+	@echo "Running Passive"
+	@python3 passive.py
 
 run_sender: 
 	@echo "Running Sender"
-	python3 sender.py
+	@python3 sender.py
