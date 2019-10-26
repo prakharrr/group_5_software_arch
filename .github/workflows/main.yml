@@ -21,3 +21,7 @@ jobs:
     
     - name: Running RabbitMq server
       run: rabbitmq-server
+    - name: Running receiver
+      run: python3 receiver.py
+    - name: Make
+      run: make
