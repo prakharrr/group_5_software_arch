@@ -14,6 +14,7 @@ Q="PIKA_QUEUE"
 # DEFINE ROUTING KEY FOR SECURITY LATER
 
 # ROUTING_KEY = ""
+
 # Setting the FileName for the logs
 filename = 'logfile'
 file = open(filename,'a+')
@@ -26,7 +27,6 @@ conn = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
 channel = conn.channel()
 
 channel.queue_declare(Q)
-
 
 def sender(a,b):
 	log = []
