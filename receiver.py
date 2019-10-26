@@ -14,6 +14,7 @@ now = (datetime.now().strftime(TIME_FORMAT))
 # Also, cleanup is required + argsparse + commandline args
 
 Q = "PIKA_QUEUE"
+print('Using Pika version: %s' % pika.__version__)
 
 
 #Creating pika connection queue and its params 
@@ -28,21 +29,20 @@ def callback(ch, method, properties, body):
 	"""
 	callback method to check the alive status of the critical process/sender
 	"""
-
+	print(str(body))
 	body = body.decode('utf-8')
+	while not body:
+		print('Waiting Waiting ... ... ... ')
 	for line in (body.split(',')):
-		if 'Result' in line:
-			print('[SUCCESS] Received data: {}'.format(line))
+		if 'SUCCESS' in line:
+			print('Logging Received data: {}'.format(line))
 		elif 'ERROR' in line:
-			print('[ERROR] Error detected in the sender at -- {}'.format(now))
-			print('[MONITOR] An error has been detected at the sender\'s end. \nPlease check the system and run again')
-			print('[MONITOR] Not exiting right now! Please try again with your process\n\n')
-			# sys.exit(1)
-	print("Received: Delivery tag: {} Channel num: {}".format(method.delivery_tag, ch.channel_number))
+			print('[ERROR] Error detected in the sender at -- {}\n'.format(now))
+			print('[MONITOR] Sleeping for 5 seconds to restart passive service\n\n')
+			time.sleep(5)
+			print('[MONITOR] Waiting for Passive service !')
 
-print("Ready to receive message from {} queue.".format(Q))
-print(' [*] Waiting for messages. To exit press CTRL+C\n')
-
+print("Listening on {} queue.".format(Q))
 channel.basic_consume(on_message_callback=callback,queue=Q, auto_ack=True)
 
 channel.start_consuming()
