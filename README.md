@@ -6,6 +6,8 @@
 
 
 
+https://github.com/prakharrr/group_5_software_arch/.github/workflows/CI/badge.svg
+
 
 ### Pre-Requisites:
  1. Install `rabbit-mq` from here https://www.rabbitmq.com/download.html for your OS
