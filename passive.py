@@ -58,7 +58,7 @@ def restart(err_val):
 			print('[MONITOR] Problem in Passive Service. Exiting now!')
 			sys.exit(1)
 			# channel.basic_publish(exchange="", routing_key=Q, body=log, properties=pika.BasicProperties(delivery_mode=1))
-
+print('*** [MONITOR] Starting Passive Service ***')
 isAlive=True
 while isAlive:
 	where = file.tell()
