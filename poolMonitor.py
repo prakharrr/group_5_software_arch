@@ -4,6 +4,8 @@ from random import randint
 from threading import Thread
 import time
 
+fibonacciNum = 33
+
 class PriorityThread(Thread):
 
     def __init__(self, priority, name):
@@ -15,13 +17,28 @@ class PriorityThread(Thread):
         return self.priority < other.priority
 
     def __str__(self):
-        return self.name + ": " +  str(self.priority)
+        return '[' + str(self.priority) + ']: ' + self.name
 
     def start(self):
-        fib()
+        print(self.name + ': Fibonacci')
+        print(Fibonacci(fibonacciNum))
 
-def fib():
-    print("Fibonacci")
+def Fibonacci(n):
+    if n<0:
+        print("Incorrect input")
+    # First Fibonacci number is 0
+    elif n==1:
+        return 0
+    # Second Fibonacci number is 1
+    elif n==2:
+        return 1
+    else:
+        return Fibonacci(n-1)+Fibonacci(n-2)
+
+def fib(name):
+    # Make task more intensive
+    print(name + ': Fibonacci')
+
 
 if __name__ == '__main__':
     q = PriorityQueue()
@@ -32,18 +49,18 @@ if __name__ == '__main__':
         threadArr = []
 
         for i in range(10):
-            threadArr.append(Thread(name='Thread-', target=fib, args=''))
-            q.put(PriorityThread(i+1, 'Thread-' + str(i+1)))
+            threadArr.append(PriorityThread(randint(1,10), 'Thread-' + str(i+1)))
+            q.put(threadArr[i])
 
-        #print(threadArr.__len__())
-        #q.put({7, threading.Thread(name='monitor', target=fib, args='')})
-        #q.put({5, threading.Thread(name='monitor', target=fib, args='')})
-        #q.put({10, threading.Thread(name='monitor', target=fib, args='')})
-
-
-        while q.qsize() > 0:
+        for i in range(10):
             print('queue size:', q.qsize())
             print(*q.queue)
-            print('Popped: ', q.get())
-            time.sleep(1)
-
+            nextThread = q.get()
+            print('Popped: ', nextThread)
+            nextThread.start()
+            #for thread in threadArr:
+            #   thread.priority += 1
+            newThread = PriorityThread(randint(1, 10), 'Thread-' + str(i + 1))
+            threadArr.append(newThread)
+            print('Added: ' + str(newThread))
+            q.put(newThread)
