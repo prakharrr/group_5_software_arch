@@ -5,13 +5,15 @@ from threading import Thread
 import time
 
 fibonacciNum = 33
+currPriority = 1
 
 class PriorityThread(Thread):
 
-    def __init__(self, priority, name):
+    def __init__(self, priority, name, number):
         Thread.__init__(self)
         self.priority = priority
         self.name = name
+        self.number = number
 
     def __lt__(self, other):
         return self.priority < other.priority
@@ -20,6 +22,9 @@ class PriorityThread(Thread):
         return '[' + str(self.priority) + ']: ' + self.name
 
     def start(self):
+        while(currPriority > self.priority):
+            pass # Wait
+        print(str(self) + ' has started')
         print(self.name + ': Fibonacci')
         print(Fibonacci(fibonacciNum))
 
@@ -35,32 +40,39 @@ def Fibonacci(n):
     else:
         return Fibonacci(n-1)+Fibonacci(n-2)
 
-def fib(name):
-    # Make task more intensive
-    print(name + ': Fibonacci')
+def IncreaseQueuePriority(queue, priorityIncrease):
+    # Increase the priority of each thread in the queue by the given amount
+    for thread in q.queue:
+        if thread.priority > 1:
+            thread.priority -= 1
 
 
 if __name__ == '__main__':
     q = PriorityQueue()
 
     with ThreadPoolExecutor(max_workers = 10) as pool:
-        # pool.submit(fib())
-        # {executor.submit(load_url, url, 60): url for url in URLS}
-        threadArr = []
-
+        # Add 10 threads with random priority into the queue
         for i in range(10):
-            threadArr.append(PriorityThread(randint(1,10), 'Thread-' + str(i+1)))
-            q.put(threadArr[i])
+            q.put(PriorityThread(priority= randint(1,10), name= 'Thread-' + str(i+1), number= i))
 
+        # Loop for 10 additions so doesn't run forever
         for i in range(10):
+            # Display threads in queue
             print('queue size:', q.qsize())
             print(*q.queue)
+
+            # Get next thread based on priority
             nextThread = q.get()
+            num = nextThread.number # For next thread which will take previous thread's number
             print('Popped: ', nextThread)
+            currPriority = nextThread.priority
+            print("Current Priority now " + str(nextThread.priority))
             nextThread.start()
-            #for thread in threadArr:
-            #   thread.priority += 1
-            newThread = PriorityThread(randint(1, 10), 'Thread-' + str(i + 1))
-            threadArr.append(newThread)
-            print('Added: ' + str(newThread))
+
+            # Increase queue priority for remaining threads
+            IncreaseQueuePriority(q, 1)
+
+            # Add another thread to replace the completed thread
+            newThread = PriorityThread(randint(1, 10), 'Thread-' + str(i + 1), num)
             q.put(newThread)
+            print('Added: ' + str(newThread))
