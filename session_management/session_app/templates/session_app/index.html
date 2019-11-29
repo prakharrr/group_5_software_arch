@@ -6,5 +6,11 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>No polls are available. {{ num_visits }} {% if num_visits == 1 %} time{% else %} times{% endif %} </p>
 {% endif %}
+
+<script type="text/javascript">
+ window.onbeforeunload = function () {
+  return 'Are you really want to perform the action?';
+ }
+</script>
