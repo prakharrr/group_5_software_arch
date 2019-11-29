@@ -10,14 +10,14 @@ from pika.compat import unicode_type, dictkeys, is_integer
 TIME_FORMAT = ("%m/%d/%Y %H:%M:%S")
 now = (datetime.now().strftime(TIME_FORMAT))
 #
-#Optimize and use a failure on auto_ack or callback 
+#Optimize and use a failure on auto_ack or callback
 # Also, cleanup is required + argsparse + commandline args
 
 Q = "PIKA_QUEUE"
 print('Using Pika version: %s' % pika.__version__)
 
 
-#Creating pika connection queue and its params 
+#Creating pika connection queue and its params
 conn = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
 
 channel = conn.channel()

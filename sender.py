@@ -42,12 +42,12 @@ for upper in range(100,10,-1):
 	time.sleep(1)
 	try:
 		print('[SUCCESS] Numbers are: A={} | B={}'.format(up,lo))
-		channel.basic_publish(exchange="", routing_key=Q, body=sender(up,lo), properties=pika.BasicProperties(delivery_mode=1))	
+		channel.basic_publish(exchange="", routing_key=Q, body=sender(up,lo), properties=pika.BasicProperties(delivery_mode=1))
 	except:
 		log.append('[ERROR] Error detected. Logging A and B to logfile!')
 		file.write('[ERROR] Numbers are: A={} | B={} \n'.format(up,lo))
 		log = ''.join(log)
-		channel.basic_publish(exchange="", routing_key=Q, body=log, properties=pika.BasicProperties(delivery_mode=1))	
+		channel.basic_publish(exchange="", routing_key=Q, body=log, properties=pika.BasicProperties(delivery_mode=1))
 		break
 
 conn.close()
