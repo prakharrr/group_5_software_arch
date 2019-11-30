@@ -6,11 +6,16 @@
 
 https://github.com/prakharrr/group_5_software_arch/.github/workflows/CI/badge.svg
 
-### Pre-Requisites:
+### HeartBeat Tactic Pre-Requisites:
  1. Install `rabbit-mq` from here https://www.rabbitmq.com/download.html for your OS
  2. Assuming you have python3, Run the rabbit-mq server : `rabbitmq-server` in a separate shell
  3. In another shell just type: `python3 receiver.py`
  4. Type `make` in another shell
+
+### Secure Session Management Pre-Requisites:
+ 1. Install django and django session timeout through pip
+    e.g. pip install Django
+        - pip install django-session-timeout
 
 #### Fault in sender
 
