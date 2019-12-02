@@ -1,0 +1,20 @@
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="/session_app
+        /{{ question.id }}/">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available. {{ num_visits }} {% if num_visits == 1 %} time{% else %} times{% endif %} </p>
+{% endif %}
+
+<script type="text/javascript">
+document.addEventListener('keydown', checkActivity);
+document.addEventListener('mousedown', checkActivity);
+document.addEventListener('mousemove', checkActivity);
+
+function checkActivity() {
+
+ }
+</script>
