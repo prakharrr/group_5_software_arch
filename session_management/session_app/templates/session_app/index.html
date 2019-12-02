@@ -10,7 +10,11 @@
 {% endif %}
 
 <script type="text/javascript">
- window.onbeforeunload = function () {
-  return 'Are you really want to perform the action?';
+document.addEventListener('keydown', checkActivity);
+document.addEventListener('mousedown', checkActivity);
+document.addEventListener('mousemove', checkActivity);
+
+function checkActivity() {
+
  }
 </script>

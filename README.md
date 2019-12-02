@@ -16,6 +16,14 @@ https://github.com/prakharrr/group_5_software_arch/.github/workflows/CI/badge.sv
  1. Install django and django session timeout through pip
     e.g. pip install Django
         - pip install django-session-timeout
+ 2. From the session_management project folder, in the Python console, python manage.py runserver.
+ This will start the app at http://localhost:8000/session_app
+ 3. Enter the link in your browser of choice. The session will expire after 1 minute and you will
+ be redirected to the login. The session will also be terminated if the browser, including all open windows,
+ are closed
+    - The session will continue past the minute if there is activity on the screen (e.g. clicking)
+    - To reduce or increase the session duration, enter the number of seconds in the SESSION_EXPIRE_SECONDS
+    variable in session_management/settings.py and re-run the command to start the server
 
 #### Fault in sender
 

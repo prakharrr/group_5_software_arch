@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Login Redirect
+LOGIN_REDIRECT_URL = '/session_app'
+
 # Session management
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_EXPIRE_SECONDS = 120
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'session_app.middleware.SessionMiddleware'
 ]
 
 ROOT_URLCONF = 'session_management.urls'
@@ -60,7 +64,7 @@ ROOT_URLCONF = 'session_management.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
